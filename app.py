@@ -14,7 +14,7 @@ st.set_page_config(
 st.title("📊 Social Media Analytics Dashboard")
 st.caption("CEO DEMO | Synthetic data only — not actual company results")
 # Load data from Google Sheets
-@st.cache_data(ttl=300)
+@st.cache_data(ttl=0)
 def load_data():
     import gspread
     from google.oauth2.service_account import Credentials
