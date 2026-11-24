@@ -13,10 +13,29 @@ st.set_page_config(
 
 st.title("📊 Social Media Analytics Dashboard")
 st.caption("CEO DEMO | Synthetic data only — not actual company results")
-
-# Create fictional demonstration data
-@st.cache_data
+# Load data from Google Sheets
+@st.cache_data(ttl=300)
 def load_data():
+    import gspread
+    from google.oauth2.service_account import Credentials
+
+    credentials = Credentials.from_service_account_info(
+        dict(st.secrets["gcp_service_account"]),
+        scopes=[
+            "https://www.googleapis.com/auth/spreadsheets.readonly"
+        ]
+    )
+
+    client = gspread.authorize(credentials)
+    spreadsheet = client.open_by_key("YOUR_SPREADSHEET_ID")
+    worksheet = spreadsheet.worksheet("Synthetic Dataset")
+
+    df = pd.DataFrame(worksheet.get_all_records())
+    df = df.rename(columns={
+        "Content Type": "Post Type",
+        "Engagement Rate (by Reach)": "Engagement Rate"
+    })
+    return df
     random.seed(42)
     records = []
 
