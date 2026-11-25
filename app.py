@@ -36,7 +36,9 @@ def load_data():
         "Engagement Rate (by Reach)": "Engagement Rate"
     })
     return df
-    
+if st.button("🔄 Refresh Data"):
+    st.cache_data.clear()
+
 df = load_data()
 
 df = df.rename(columns={
