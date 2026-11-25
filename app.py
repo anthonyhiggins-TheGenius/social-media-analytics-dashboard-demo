@@ -45,7 +45,7 @@ df = df.rename(columns={
 })
 
 st.success("Google Sheets connected successfully")
-df["Date"] = pd.to_datetime(df["Date"])
+df["Date"] = pd.to_datetime(df["Date"], format="mixed", dayfirst=True)
 
 # Interactive filters
 st.sidebar.header("Dashboard Filters")
