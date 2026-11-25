@@ -27,7 +27,7 @@ def load_data():
     )
 
     client = gspread.authorize(credentials)
-    spreadsheet = client.open_by_key("YOUR_SPREADSHEET_ID")
+    spreadsheet = client.open_by_key(st.secrets["google_sheets"]["spreadsheet_id"])
     worksheet = spreadsheet.worksheet("Synthetic Dataset")
 
     df = pd.DataFrame(worksheet.get_all_records())
