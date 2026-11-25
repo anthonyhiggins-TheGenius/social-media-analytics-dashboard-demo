@@ -36,50 +36,15 @@ def load_data():
         "Engagement Rate (by Reach)": "Engagement Rate"
     })
     return df
-    random.seed(42)
-    records = []
+    
+df = load_data()
 
-    for i in range(1, 61):
-        platform = random.choice(["Instagram", "Facebook"])
-        post_type = random.choice(
-            ["Reel", "Image", "Carousel", "Story"]
-        )
-        reach = random.randint(500, 5000)
-        likes = random.randint(30, 450)
-        comments = random.randint(5, 80)
-        shares = random.randint(2, 100)
-        saves = random.randint(0, 120)
-
-        records.append({
-            "Post": f"Post {i}",
-            "Date": datetime(2026, 10, 1) + timedelta(days=i % 45),
-            "Platform": platform,
-            "Post Type": post_type,
-            "Reach": reach,
-            "Likes": likes,
-            "Comments": comments,
-            "Shares": shares,
-            "Saves": saves
-        })
-
-    df = pd.DataFrame(records)
-    df["Engagements"] = (
-        df["Likes"] + df["Comments"] +
-        df["Shares"] + df["Saves"]
-    )
-    df["Engagement Rate"] = (
-        df["Engagements"] / df["Reach"] * 100
-    )
-    return df
-
-df = pd.read_excel("Synthetic_Social_Media_Dataset.xlsx")
 df = df.rename(columns={
     "Post ID": "Post",
-    "Content Type": "Post Type",
-    "Total Engagements": "Engagements",
-    "Engagement Rate (by Reach)": "Engagement Rate"
+    "Total Engagements": "Engagements"
 })
 
+st.success("Google Sheets connected successfully")
 df["Date"] = pd.to_datetime(df["Date"])
 
 # Interactive filters
